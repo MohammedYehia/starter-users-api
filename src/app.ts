@@ -1,7 +1,8 @@
 import express, { NextFunction, Request, Response } from "express";
-import userRoutes from "./routes/user.routes";
 import dotenv from "dotenv";
 import path from "path";
+import userRoutes from "./routes/user.routes";
+import { apiLimiter } from "./middleware/rateLimiter";
 
 dotenv.config();
 
@@ -12,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
-app.use("/api/users", userRoutes);
+app.use("/api/users", apiLimiter, userRoutes);
 
 app.get("/", (req, res) => {
   res.send("Users API is running!");
