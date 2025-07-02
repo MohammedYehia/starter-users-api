@@ -19,6 +19,10 @@ app.get("/", (req, res) => {
   res.send("Users API is running!");
 });
 
+app.get("/health-check", (req, res) => {
+  res.send("Users API is Up and Running!🎉");
+});
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err);
