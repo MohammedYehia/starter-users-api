@@ -2,6 +2,11 @@ import { IUser, UserModel } from "../models/user.model";
 import { CreateUserDto } from "../validations/user.schema";
 
 export class UserRepo {
+
+  getAll (): Promise<IUser[]> {
+    return UserModel.find();
+  }
+
   create(data: CreateUserDto): Promise<IUser> {
     return new UserModel(data).save();
   }

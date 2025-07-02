@@ -6,6 +6,15 @@ import { userIdParamSchema } from "../validations/common.schema";
 export class UserController {
   private userService = new UserService();
 
+  async getAll(req: Request, res: Response, next: NextFunction) {
+    try {
+      const users = await this.userService.getAll();
+      res.status(200).json(users);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async create(req: Request, res: Response, next: NextFunction) {
     try {
       const data = createUserSchema.parse(req.body);

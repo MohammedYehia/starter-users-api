@@ -7,6 +7,7 @@ const userController = new UserController();
 
 // we used bind because the create is defined as function declaration
 // if we define create as named arrow function then we don't need bind
+router.get("/", userController.getAll.bind(userController));
 router.post("/", userController.create.bind(userController));
 router.patch(
   "/:id/photo",

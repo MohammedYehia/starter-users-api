@@ -5,6 +5,13 @@ import { CreateUserDto, UserDto, userSchema } from "../validations/user.schema";
 export class UserService {
   private userRepo = new UserRepo();
 
+  async getAll(): Promise<UserDto[]> {
+    const allUsers = await this.userRepo.getAll();
+    // const users = allUsers.map((user) => userSchema.parse(user.toJSON()));
+    const users = userSchema.array().parse(allUsers);
+    return users;
+  }
+
   async create(data: CreateUserDto): Promise<UserDto> {
     const existingUser = await this.userRepo.findByEmail(data.email);
     if (existingUser) {
